@@ -10,7 +10,7 @@
 <section id="create" class="post-create">
     <h2>Crear publicación</h2>
 
-    <form method="post" action="/posts">
+    <form id="postForm">
         <div class="form-group">
             <label for="title">Título</label>
             <input
@@ -45,10 +45,11 @@
                 {% endfor %}
             </select>
         </div>
-
         <button type="submit" class="btn primary">
             Publicar
         </button>
+        <div id="message"></div>
+
     </form>
 </section>
 
@@ -84,4 +85,8 @@
     {% endif %}
 </section>
 
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/post.js"></script>
 {% endblock %}
