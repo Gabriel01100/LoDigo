@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}LoDigo - publicaciones{% endblock %}
+
+{% block content %}
+
+<!-- ===================== -->
+<!-- Crear nueva publicación -->
+<!-- ===================== -->
+<section id="create" class="post-create">
+    <h2>Crear publicación</h2>
+
+    <form method="post" action="/posts">
+        <div class="form-group">
+            <label for="title">Título</label>
+            <input
+                type="text"
+                id="title"
+                name="title"
+                maxlength="150"
+                placeholder="Título"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="content">Contenido</label>
+            <textarea
+                id="content"
+                name="content"
+                required
+                minlength="5"
+                maxlength="2000"
+                placeholder="Escribí tu mensaje…"
+            ></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="school_id">Colegio (opcional)</label>
+            <select name="school_id" id="school_id">
+                <option value="">— Sin colegio —</option>
+                {% for school in schools %}
+                    <option value="{{ school.id }}">
+                        {{ school.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn primary">
+            Publicar
+        </button>
+    </form>
+</section>
+
+<hr>
+
+<!-- ===================== -->
+<!-- Listado de publicaciones -->
+<!-- ===================== -->
+<section class="post-list" id="view-post">
+    <h2>Últimas publicaciones</h2>
+
+    {% if posts %}
+        {% for post in posts %}
+            <article class="post">
+                {% if post.title %}
+                    <h3>{{ post.title }}</h3>
+                {% endif %}
+
+                <p class="post-content">
+                    {{ post.content }}
+                </p>
+
+                <div class="post-meta">
+                    {% if post.school %}
+                        <span>Colegio: {{ post.school.name }}</span>
+                    {% endif %}
+                    <span>Publicado: {{ post.created_at.strftime('%d/%m/%Y %H:%M') }}</span>
+                </div>
+            </article>
+        {% endfor %}
+    {% else %}
+        <p>No hay publicaciones todavía.</p>
+    {% endif %}
+</section>
+
+{% endblock %}

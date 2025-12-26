@@ -1,0 +1,12 @@
+# database.py
+
+Uso de *DeclarativeBase* para que todos los modelos hereden de *Base* por eso esta vacia, con *DeclarativeBase* los modelos funcionan como ORM
+Uso de *async_sessionmaker* es la forma oficial de SQLAlchemy 2.x
+
+**create_async_engine** 
+- pool_pre_ping=True evita errores de conexión vieja 
+- pool_size: cuántas conexiones abiertas mantiene
+- max_overflow: conexiones extra cuando hay carga alta.
+
+Cuando cambie algun modelo ejecuto alembic revision --autogenerate -m "update posts table"
+y alembic upgrade head

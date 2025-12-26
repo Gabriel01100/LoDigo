@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Colegios | Lodigo{% endblock %}
+
+{% block content %}
+<section class="schools">
+
+  <h1>Colegios</h1>
+  <p class="subtitle">
+    Seleccioná un colegio para ver las publicaciones asociadas
+  </p>
+
+  {% if schools %}
+    <ul class="school-list">
+      {% for school in schools %}
+        <li class="school-item">
+            <a href="/posts?school_id={{ school.id }}"> <!-- "/posts/school/{{ school.id }}" -->
+            {{ school.name }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty">
+      No hay colegios cargados aún.
+    </p>
+  {% endif %}
+
+  {# --- opcional: agregar colegio (solo moderador) --- #}
+  {% if is_moderator %}
+    <hr>
+
+    <h2>Agregar colegio</h2>
+    <form method="post" action="/schools">
+      <input
+        type="text"
+        name="name"
+        placeholder="Nombre del colegio"
+        required
+        minlength="3"
+        maxlength="100"
+      >
+      <button type="submit">Agregar</button>
+    </form>
+  {% endif %}
+
+</section>
+{% endblock %}

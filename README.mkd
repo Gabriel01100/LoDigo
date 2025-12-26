@@ -1,0 +1,12 @@
+#LoDigo
+
+## App para estudiantes 
+
+*LoDigo* es una aplicacion donde los estudiantes pueden confensar o expresar sus pensamientos en un espacio sin censura y con total anonimato.
+
+Las acciones que puede efectuar cada uno:
+
+- Entrar sin registrarse
+- Elegir su colegio
+- Ver publicaciones anónimas
+- Crear una publicación

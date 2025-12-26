@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}LoDigo - Inicio{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Bienvenido a LoDigo</h1>
+
+    <p class="subtitle">
+        Un espacio para publicar ideas y opiniones de forma anónima.
+    </p>
+
+    <div class="hero-actions">
+        <a href="/posts#view-post" class="btn primary">
+            Ver publicaciones
+        </a>
+
+        <a href="/posts#create" class="btn secondary">
+            Crear publicación
+        </a>
+
+        <a href="/schools" class="btn secondary">
+            Ver escuelas
+        </a>
+
+    </div>
+</section>
+
+<hr>
+
+<section class="info">
+    <h2>¿Cómo funciona?</h2>
+
+    <ul>
+        <li>No necesitás registrarte</li>
+        <li>Se te asigna una identidad anónima automáticamente</li>
+        <li>Podés publicar y editar tus propios mensajes</li>
+        <li>Las publicaciones pueden asociarse a colegios</li>
+    </ul>
+</section>
+{% endblock %}
