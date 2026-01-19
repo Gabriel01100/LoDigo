@@ -1,4 +1,4 @@
-from sqlalchemy import BigInteger, Text, TIMESTAMP, ForeignKey, func
+from sqlalchemy import BigInteger, Text, TIMESTAMP, ForeignKey, func, Boolean, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from typing import TYPE_CHECKING
 
@@ -20,6 +20,11 @@ class Posts(Base):
     )
     updated_at: Mapped[str] = mapped_column(
         TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    is_deleted: Mapped[bool] = mapped_column(
+        Boolean,
+        nullable=False,
+        server_default=text("false")
+    )
     
     #FK
 

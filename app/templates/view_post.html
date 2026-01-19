@@ -1,0 +1,47 @@
+
+{% extends "base.html" %}
+
+{% block title %}LoDigo - publicaciones{% endblock %}
+
+{% block content %}
+
+<!-- ===================== -->
+<!-- Listado de publicaciones -->
+<!-- ===================== -->
+<section class="post-list" id="view-post">
+    <h2>Últimas publicaciones</h2>
+
+    {% if posts %}
+        {% for post in posts %}
+            <article class="post">
+                {% if post.title %}
+                    <h3>{{ post.title }}</h3>
+                {% endif %}
+
+                <p class="post-content">
+                    {{ post.content }}
+                </p>
+
+                <button class="report-btn"
+                    onclick="reportPost({{ post.id }})">🚩 Reportar
+                </button>
+
+                <div class="post-meta">
+                    {% if post.school %}
+                        <span>Colegio: {{ post.school.name }}</span>
+                    {% endif %}
+                    <span>Publicado: {{ post.created_at.strftime('%d/%m/%Y %H:%M') }}</span>
+                </div>
+            </article>
+        {% endfor %}
+    {% else %}
+        <p>No hay publicaciones todavía.</p>
+    {% endif %}
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/post.js"></script>
+<script src="/static/js/report.js"></script>
+{% endblock %}

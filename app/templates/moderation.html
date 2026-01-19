@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Panel de Moderación</h2>
+
+{% if posts %}
+  {% for post in posts %}
+    <div class="moderation-card {% if post.is_deleted %}deleted{% endif %}">
+
+      <h3>{{ post.title or "Sin título" }}</h3>
+
+      <p class="content">{{ post.content }}</p>
+
+      <p class="meta">
+        🏫 {{ post.school_name or "Sin colegio" }} |
+        📅 {{ post.created_at.strftime('%Y-%m-%d %H:%M') }} |
+        🚩 {{ post.reports_count }} reportes
+      </p>
+
+      <div class="actions">
+        {% if not post.is_deleted %}
+          <button onclick="hidePost({{ post.id }})">Ocultar</button>
+        {% else %}
+          <button onclick="restorePost({{ post.id }})">Restaurar</button>
+        {% endif %}
+      </div>
+
+    </div>
+  {% endfor %}
+{% else %}
+  <p>No hay posts reportados.</p>
+{% endif %}
+
+<script src="/static/js/moderation.js"></script>
+{% endblock %}

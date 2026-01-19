@@ -1,4 +1,4 @@
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, field_validator, Field
 from datetime import datetime
 from typing import Optional
 
@@ -30,6 +30,9 @@ class PostBase(BaseModel):
         return v
 
 class PostCreate(PostBase):
+    # title: str | None = Field(default=None, max_length=100)
+    # content: str = Field(min_length=1, max_length=2000)
+    # school_id: int
     pass
 
 class PostUpdate(BaseModel):

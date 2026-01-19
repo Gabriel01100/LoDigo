@@ -41,6 +41,7 @@ from app.routers.school_router import router as school_router
 from app.routers.posts_router import router as posts_router
 from app.routers.views_index_router import router as views_index_router
 from app.routers.post_views_router import router as post_views_router
+from app.routers.moderation_router import router as moderation_router
 
 
 app.include_router(auth_router)
@@ -48,6 +49,7 @@ app.include_router(school_router)
 app.include_router(posts_router)
 app.include_router(views_index_router)
 app.include_router(post_views_router)
+app.include_router(moderation_router)
 
 
 

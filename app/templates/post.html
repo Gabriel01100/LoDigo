@@ -72,6 +72,10 @@
                     {{ post.content }}
                 </p>
 
+                <button class="report-btn"
+                    onclick="reportPost({{ post.id }})">🚩 Reportar
+                </button>
+
                 <div class="post-meta">
                     {% if post.school %}
                         <span>Colegio: {{ post.school.name }}</span>
@@ -89,4 +93,5 @@
 
 {% block scripts %}
 <script src="/static/js/post.js"></script>
+<script src="/static/js/report.js"></script>
 {% endblock %}

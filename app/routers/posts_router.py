@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, Request, Response, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-
 from app.security.rate_limits import rate_limits_posts
 from app.database import get_db
 #Schemas y servicios
@@ -10,13 +9,16 @@ from app.services.auth_service import AuthService
 
 from app.core.templates import templates
 
+from app.dependecies import require_role
 
+from app.services.moderation_service import ModerationService
+from app.schemas.report_shecema import ReportRequest
 
 router = APIRouter(prefix="/posts", tags=["Posteo"])
 
 @router.post("/", response_model=PostResponse, dependencies=[Depends(rate_limits_posts)])
-async def create_post(data:PostCreate, request:Request, response:Response, session:AsyncSession=Depends(get_db)):
-    user = await AuthService.get_or_create_anon_user(request, response, session)
+async def create_post(data:PostCreate, request:Request, response:Response, user = Depends(require_role(["user", "moderator"])),session:AsyncSession=Depends(get_db)):
+    #user = await AuthService.get_or_create_anon_user(request, response, session)
     return await PostService.create_post(data, user, session)
 
 
@@ -54,3 +56,35 @@ async def delete_post(post_id: int,request: Request,response: Response,session: 
 
     return {"status": "ok"}
 
+############### REPORTS POSTS#######################
+
+#reportar
+
+@router.post("/{post_id}/report")
+async def report_post(
+    post_id: int,
+    reason: ReportRequest,
+    user = Depends(require_role(["user", "moderator"])),
+    session: AsyncSession = Depends(get_db)
+):
+    return await ModerationService.report_post(
+        post_id=post_id,
+        reason=reason.reason,
+        user_id=user.id,
+        session=session
+    )
+
+#ver reportes como moderador
+@router.get("/reports")
+async def list_reports(moderator = Depends (require_role(["moderator"])), session:AsyncSession=Depends(get_db)):
+    return await ModerationService.list_reports(session)
+
+#ocultar post
+@router.patch("/{post_id}/hide")
+async def hide_post(post_id:int, moderator = Depends(require_role(["moderator"])), session:AsyncSession = Depends(get_db)):
+    return await ModerationService.soft_delete_post(post_id, session)
+
+#restaurar
+@router.patch("/{post_id}/restore")
+async def restore_post(post_id:int, moderator = Depends(require_role(["moderator"])), session:AsyncSession=Depends(get_db)):
+    return await ModerationService.restore_post(post_id, session)
