@@ -3,58 +3,6 @@
 {% block title %}LoDigo - publicaciones{% endblock %}
 
 {% block content %}
-
-<!-- ===================== -->
-<!-- Crear nueva publicación -->
-<!-- ===================== -->
-<section id="create" class="post-create">
-    <h2>Crear publicación</h2>
-
-    <form id="postForm">
-        <div class="form-group">
-            <label for="title">Título</label>
-            <input
-                type="text"
-                id="title"
-                name="title"
-                maxlength="150"
-                placeholder="Título"
-            >
-        </div>
-
-        <div class="form-group">
-            <label for="content">Contenido</label>
-            <textarea
-                id="content"
-                name="content"
-                required
-                minlength="5"
-                maxlength="2000"
-                placeholder="Escribí tu mensaje…"
-            ></textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="school_id">Colegio (opcional)</label>
-            <select name="school_id" id="school_id">
-                <option value="">— Sin colegio —</option>
-                {% for school in schools %}
-                    <option value="{{ school.id }}">
-                        {{ school.name }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
-        <button type="submit" class="btn primary">
-            Publicar
-        </button>
-        <div id="message"></div>
-
-    </form>
-</section>
-
-<hr>
-
 <!-- ===================== -->
 <!-- Listado de publicaciones -->
 <!-- ===================== -->

@@ -18,4 +18,14 @@ async def posts_view(
     posts = await PostService.list_posts(session)
     schools = await SchoolService.list_schools(session)
 
-    return templates.TemplateResponse("post.html", {"request":request,"posts":posts, "school": schools})
+    return templates.TemplateResponse("post.html", {"request":request,"posts":posts, "schools": schools})
+
+@router.get("/posts/create", response_class=HTMLResponse)
+async def posts_create_view(
+    request: Request,
+    session: AsyncSession = Depends(get_db)
+):
+    posts = await PostService.list_posts(session)
+    schools = await SchoolService.list_schools(session)
+
+    return templates.TemplateResponse("create.html", {"request":request,"posts":posts, "schools": schools})

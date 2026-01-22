@@ -26,4 +26,3 @@ document.getElementById("postForm").addEventListener("submit", async (e) => {
 });
 
 console.log("post.js cargado");
-

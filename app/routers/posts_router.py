@@ -17,7 +17,13 @@ from app.schemas.report_shecema import ReportRequest
 router = APIRouter(prefix="/posts", tags=["Posteo"])
 
 @router.post("/", response_model=PostResponse, dependencies=[Depends(rate_limits_posts)])
-async def create_post(data:PostCreate, request:Request, response:Response, user = Depends(require_role(["user", "moderator"])),session:AsyncSession=Depends(get_db)):
+async def create_post(
+    data: PostCreate,
+    request: Request,
+    response: Response,
+    user = Depends(require_role(["user", "moderator"])),
+    session: AsyncSession = Depends(get_db)
+):
     #user = await AuthService.get_or_create_anon_user(request, response, session)
     return await PostService.create_post(data, user, session)
 
